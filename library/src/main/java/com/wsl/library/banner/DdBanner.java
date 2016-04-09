@@ -1,14 +1,18 @@
 package com.wsl.library.banner;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.wsl.library.banner.transformer.AccordionPageTransformer;
@@ -38,10 +42,16 @@ public class DdBanner extends RelativeLayout {
     private static final int SCROLL_WHAT = 100000;
     private static final int LOOP_DELAY_TIME = 3000;
 
+    private int defaultWidth;
+    private int defaultHeight;
+
     private DdViewPager ddViewPager;
     private LoopHandler loopHandler;
     private boolean canLoop;
     private boolean isLooping;
+
+    private float scale;
+    private int yOffset;
 
     public DdBanner(Context context) {
         this(context, null);
@@ -55,6 +65,42 @@ public class DdBanner extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         initViews(context);
         initOther();
+        initAttr(context, attrs);
+    }
+
+    private void initAttr(Context context, AttributeSet attrs) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        defaultWidth = point.x;
+        defaultHeight = point.y;
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DbBanner);
+        scale = a.getFloat(R.styleable.DbBanner_ratio, -1);
+        yOffset = a.getDimensionPixelSize(R.styleable.DbBanner_offsetY, 0);
+
+        a.recycle();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = defaultWidth;
+        int height = defaultHeight;
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        if (widthMode == MeasureSpec.EXACTLY) {
+            width = widthSize;
+        }
+
+        if (scale != -1) {
+            height = (int) (width / scale + yOffset);
+        }
+
+        int newHeightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
+        int newWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
+        super.onMeasure(newWidthMeasureSpec, newHeightMeasureSpec);
     }
 
     private void initOther() {
