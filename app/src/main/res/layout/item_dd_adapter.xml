@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wsl.library.banner.DbImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/image"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scaleType="fitXY"
+    android:src="@mipmap/ic_dd_default"
+    tools:layout_height="162dp" />

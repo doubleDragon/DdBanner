@@ -15,18 +15,29 @@ import java.util.List;
 /**
  * Created by wsl on 16-4-5.
  */
-public class DdAdapter extends PagerAdapter {
+public abstract class DdAdapter extends PagerAdapter {
 
     private List<String> urls;
 
     private Context context;
     private LayoutInflater inflater;
 
+    protected abstract int getLayoutId();
+    protected abstract int getLayoutImageId();
+    protected abstract int getDefaultImageId();
+
     public DdAdapter(Context context) {
+        this(context, null);
+    }
+
+    public DdAdapter(Context context, List<String> urls) {
         super();
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.urls = new ArrayList<>();
+        if(urls != null && !urls.isEmpty()) {
+            this.urls.addAll(urls);
+        }
     }
 
     public void update(List<String> urls) {
@@ -71,15 +82,17 @@ public class DdAdapter extends PagerAdapter {
         int offset = getChildOffset(position);
         View child = parent.getChildAt(offset);
         if (child == null) {
-            child = inflater.inflate(R.layout.layout_dd_adapter_item, parent, false);
+            child = inflater.inflate(getLayoutId(), parent, false);
             parent.addView(child);
         }
-        ImageView imageView = (ImageView) child;
-        Picasso.with(context)
-                .load(urls.get(position))
-                .placeholder(R.mipmap.ic_dd_item_default)
-                .error(R.mipmap.ic_dd_item_default)
-                .into(imageView);
+        ImageView imageView = (ImageView) child.findViewById(getLayoutImageId());
+        if(imageView != null) {
+            Picasso.with(context)
+                    .load(urls.get(position))
+                    .placeholder(getDefaultImageId())
+                    .error(getDefaultImageId())
+                    .into(imageView);
+        }
         return child;
     }
 }
