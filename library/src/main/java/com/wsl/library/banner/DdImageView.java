@@ -3,25 +3,24 @@ package com.wsl.library.banner;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 
 /**
  * Created by wsl on 16-4-12.
  */
-public class DbImageView extends ImageView {
+public class DdImageView extends ImageView {
 
-    private static final String TAG = DbImageView.class.getSimpleName();
+    private static final String TAG = DdImageView.class.getSimpleName();
 
-    public DbImageView(Context context) {
+    public DdImageView(Context context) {
         super(context);
     }
 
-    public DbImageView(Context context, AttributeSet attrs) {
+    public DdImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DbImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DdImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

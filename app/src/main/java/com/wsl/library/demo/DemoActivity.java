@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.squareup.picasso.Picasso;
-import com.wsl.library.banner.DbImageView;
 import com.wsl.library.banner.DdBanner;
 
 import java.util.ArrayList;
@@ -25,6 +23,13 @@ public class DemoActivity extends AppCompatActivity {
         setContentView(R.layout.layout_demo);
 
         initViews();
+    }
+
+    private void checkUrls() {
+        List<String> urls= new ArrayList<>();
+        urls.add("http://images.qingsongchou.com/files/banner/14593422870267460258.jpg");
+        urls.add("http://images.qingsongchou.com/files/banner/14593335342944e01017.jpg");
+        ddAdapter.update(urls);
     }
 
     private void initViews() {
@@ -50,6 +55,12 @@ public class DemoActivity extends AppCompatActivity {
                 } else {
                     ddViewPager.startLoop();
                 }
+            }
+        });
+        findViewById(R.id.change).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkUrls();
             }
         });
     }

@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -32,8 +31,6 @@ import com.wsl.library.banner.transformer.ZoomStackPageTransformer;
 
 import java.lang.ref.WeakReference;
 
-import me.relex.circleindicator.CircleIndicator;
-
 /**
  * Created by wsl on 16-4-5.
  */
@@ -42,20 +39,21 @@ public class DdBanner extends RelativeLayout {
     private static final String TAG = DdBanner.class.getSimpleName();
 
     private static final int SCROLL_WHAT = 100000;
-    private static final int LOOP_DELAY_TIME = 3000;
+    private static final int DEFAULT_LOOP_DELAY = 3000;
+    private static final int DEFAULT_CHANGE_DURATION = 800;
 
     private int defaultWidth;
     private int defaultHeight;
-    private float targetX;
+    private int targetX;
     private int targetY;
+    private int loopDelay;
+    private int changeDuration;
 
-    private CircleIndicator circleIndicator;
+    private DdNormalIndicator ddIndicator;
     private DdViewPager ddViewPager;
     private LoopHandler loopHandler;
     private boolean canLoop;
     private boolean isLooping;
-
-
 
     public DdBanner(Context context) {
         this(context, null);
@@ -67,9 +65,9 @@ public class DdBanner extends RelativeLayout {
 
     public DdBanner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttr(context, attrs);
         initViews(context);
         initOther();
-        initAttr(context, attrs);
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
@@ -81,8 +79,10 @@ public class DdBanner extends RelativeLayout {
         defaultHeight = point.y;
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DbBanner);
-        targetX = a.getInt(R.styleable.DbBanner_targetX, 0);
-        targetY = a.getInt(R.styleable.DbBanner_targetY, 0);
+        targetX = a.getInt(R.styleable.DbBanner_dd_targetX, 0);
+        targetY = a.getInt(R.styleable.DbBanner_dd_targetY, 0);
+        loopDelay = a.getInt(R.styleable.DbBanner_dd_loop_delay, DEFAULT_LOOP_DELAY);
+        changeDuration = a.getInt(R.styleable.DbBanner_dd_change_duration, DEFAULT_CHANGE_DURATION);
 
         a.recycle();
     }
@@ -119,19 +119,19 @@ public class DdBanner extends RelativeLayout {
 
         ddViewPager = new DdViewPager(context);
         ddViewPager.setLayoutParams(params0);
-        ddViewPager.setPageChangeDuration(800);
+        ddViewPager.setPageChangeDuration(changeDuration);
         ddViewPager.setPageTransformer(true, new DefaultPageTransformer());
 
         addView(ddViewPager);
 
-        LayoutParams params1 = new LayoutParams(LayoutParams.MATCH_PARENT, dp2px(context, 48));
-        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        circleIndicator = new CircleIndicator(context);
-        circleIndicator.setGravity(Gravity.CENTER);
-        circleIndicator.setLayoutParams(params1);
-//        circleIndicator.setViewPager(ddViewPager);
+        LayoutParams params1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        params1.bottomMargin = dp2px(context, 8);
+        ddIndicator = new DdNormalIndicator(context);
+        ddIndicator.setGravity(Gravity.CENTER);
+        ddIndicator.setLayoutParams(params1);
 
-        addView(circleIndicator);
+        addView(ddIndicator);
     }
 
     public void setAdapter(DdAdapter adapter) {
@@ -142,7 +142,7 @@ public class DdBanner extends RelativeLayout {
             throw new IllegalStateException("DdBanner set adapter only once");
         }
         ddViewPager.setAdapter(adapter);
-        circleIndicator.setViewPager(ddViewPager);
+        ddIndicator.setViewPager(ddViewPager);
     }
 
     public void setCanLoop(boolean canLoop) {
@@ -176,17 +176,12 @@ public class DdBanner extends RelativeLayout {
     }
 
     private void scrollToNext() {
-        int count = ddViewPager.getAdapter().getCount();
         int index = ddViewPager.getCurrentItem();
-        if (index == (count - 1)) {
-            ddViewPager.setCurrentItem(0);
-        } else {
-            ddViewPager.setCurrentItem(index + 1);
-        }
+        ddViewPager.setCurrentItem(index + 1);
     }
 
     private void sendLoopMessage() {
-        loopHandler.sendEmptyMessageDelayed(SCROLL_WHAT, LOOP_DELAY_TIME);
+        loopHandler.sendEmptyMessageDelayed(SCROLL_WHAT, loopDelay);
     }
 
     private void removeLoopMessage() {

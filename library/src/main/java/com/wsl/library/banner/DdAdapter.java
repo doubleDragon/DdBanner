@@ -23,7 +23,9 @@ public abstract class DdAdapter extends PagerAdapter {
     private LayoutInflater inflater;
 
     protected abstract int getLayoutId();
+
     protected abstract int getLayoutImageId();
+
     protected abstract int getDefaultImageId();
 
     public DdAdapter(Context context) {
@@ -35,7 +37,7 @@ public abstract class DdAdapter extends PagerAdapter {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.urls = new ArrayList<>();
-        if(urls != null && !urls.isEmpty()) {
+        if (urls != null && !urls.isEmpty()) {
             this.urls.addAll(urls);
         }
     }
@@ -51,7 +53,7 @@ public abstract class DdAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return urls.size();
+        return Integer.MAX_VALUE - urls.size();
     }
 
     @Override
@@ -78,6 +80,10 @@ public abstract class DdAdapter extends PagerAdapter {
         return position % 3;
     }
 
+    private int getPositionOffset(int position) {
+        return position % urls.size();
+    }
+
     private View getView(int position, ViewGroup parent) {
         int offset = getChildOffset(position);
         View child = parent.getChildAt(offset);
@@ -86,9 +92,9 @@ public abstract class DdAdapter extends PagerAdapter {
             parent.addView(child);
         }
         ImageView imageView = (ImageView) child.findViewById(getLayoutImageId());
-        if(imageView != null) {
+        if (imageView != null) {
             Picasso.with(context)
-                    .load(urls.get(position))
+                    .load(urls.get(getPositionOffset(position)))
                     .placeholder(getDefaultImageId())
                     .error(getDefaultImageId())
                     .into(imageView);

@@ -10,8 +10,8 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:targetX="710"
-        app:targetY="320"
+        app:dd_targetX="710"
+        app:dd_targetY="320"
         tools:background="#f33" />
 
     <Button
@@ -20,5 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="toggle" />
+
+    <Button
+        android:id="@+id/change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="change url" />
 
 </LinearLayout>
