@@ -4,8 +4,27 @@ This is an attempt to make Banner easier to use.
 
 Features built in:
 -  auto play banner with ViewPager
--  [CircleIndicator](https://github.com/ongakuer/CircleIndicator)
+-  custom simple indicator base on [CircleIndicator](https://github.com/ongakuer/CircleIndicator)
 
+## AttributeSet
+```xml
+<declare-styleable name="DdIndicator">
+        <attr name="dd_width" format="dimension"/>
+        <attr name="dd_height" format="dimension"/>
+        <attr name="dd_margin" format="dimension"/>
+        <attr name="dd_animator" format="reference"/>
+        <attr name="dd_animator_reverse" format="reference"/>
+        <attr name="dd_drawable" format="reference"/>
+        <attr name="dd_drawable_unselected" format="reference"/>
+    </declare-styleable>
+    
+    <declare-styleable name="DbBanner">
+        <attr name="dd_targetX" format="integer"/>
+        <attr name="dd_targetY" format="integer"/>
+        <attr name="dd_loop_delay" format="integer"/>
+        <attr name="dd_change_duration" format="integer"/>
+    </declare-styleable>
+```
 
 ##Integration
 
