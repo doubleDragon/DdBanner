@@ -5,9 +5,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,45 +12,53 @@ import java.util.List;
 /**
  * Created by wsl on 16-4-5.
  */
-public abstract class DdAdapter extends PagerAdapter {
+public abstract class DdAdapter<T> extends PagerAdapter {
 
-    private List<String> urls;
+    private List<T> data;
 
     private Context context;
     private LayoutInflater inflater;
 
-    protected abstract int getLayoutId();
+    protected abstract View onCreateView(LayoutInflater inflater, ViewGroup parent);
 
-    protected abstract int getLayoutImageId();
+    protected abstract DdViewHolder onCreateHolder(View itemView);
 
-    protected abstract int getDefaultImageId();
+    protected abstract void onBindView(int position, DdViewHolder viewHolder);
 
     public DdAdapter(Context context) {
         this(context, null);
     }
 
-    public DdAdapter(Context context, List<String> urls) {
+    protected Context getContext() {
+        return context;
+    }
+
+    protected T getItem(int position) {
+        return data.get(position);
+    }
+
+    public DdAdapter(Context context, List<T> list) {
         super();
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.urls = new ArrayList<>();
-        if (urls != null && !urls.isEmpty()) {
-            this.urls.addAll(urls);
+        this.data = new ArrayList<>();
+        if (list != null && !list.isEmpty()) {
+            this.data.addAll(list);
         }
     }
 
-    public void update(List<String> urls) {
-        if (urls == null) {
+    public void update(List<T> list) {
+        if (list == null) {
             return;
         }
-        this.urls.clear();
-        this.urls.addAll(urls);
+        this.data.clear();
+        this.data.addAll(list);
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE - urls.size();
+        return Integer.MAX_VALUE - data.size();
     }
 
     @Override
@@ -81,24 +86,24 @@ public abstract class DdAdapter extends PagerAdapter {
     }
 
     private int getPositionOffset(int position) {
-        return position % urls.size();
+        return position % data.size();
     }
 
     private View getView(int position, ViewGroup parent) {
         int offset = getChildOffset(position);
         View child = parent.getChildAt(offset);
+        DdViewHolder viewHolder;
         if (child == null) {
-            child = inflater.inflate(getLayoutId(), parent, false);
+            child = onCreateView(inflater, parent);
+            viewHolder = onCreateHolder(child);
+            child.setTag(viewHolder);
             parent.addView(child);
+        } else {
+            viewHolder = (DdViewHolder) child.getTag();
         }
-        ImageView imageView = (ImageView) child.findViewById(getLayoutImageId());
-        if (imageView != null) {
-            Picasso.with(context)
-                    .load(urls.get(getPositionOffset(position)))
-                    .placeholder(getDefaultImageId())
-                    .error(getDefaultImageId())
-                    .into(imageView);
-        }
+        position = getPositionOffset(position);
+        viewHolder.setPosition(position);
+        onBindView(position, viewHolder);
         return child;
     }
 }

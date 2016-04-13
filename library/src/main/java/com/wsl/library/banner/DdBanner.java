@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -51,6 +52,7 @@ public class DdBanner extends RelativeLayout {
 
     private DdNormalIndicator ddIndicator;
     private DdViewPager ddViewPager;
+    private DdAdapter ddAdapter;
     private LoopHandler loopHandler;
     private boolean canLoop;
     private boolean isLooping;
@@ -138,11 +140,16 @@ public class DdBanner extends RelativeLayout {
         if(adapter == null) {
             return;
         }
-        if(ddViewPager.getAdapter() != null) {
+        if(ddAdapter != null) {
             throw new IllegalStateException("DdBanner set adapter only once");
         }
-        ddViewPager.setAdapter(adapter);
+        ddAdapter = adapter;
+        ddViewPager.setAdapter(ddAdapter);
         ddIndicator.setViewPager(ddViewPager);
+    }
+
+    public DdAdapter getAdapter() {
+        return ddAdapter;
     }
 
     public void setCanLoop(boolean canLoop) {
