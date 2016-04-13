@@ -8,7 +8,7 @@ Features built in:
 
 ## AttributeSet
 ```xml
-<declare-styleable name="DdIndicator">
+    <declare-styleable name="DdIndicator">
         <attr name="dd_width" format="dimension"/>
         <attr name="dd_height" format="dimension"/>
         <attr name="dd_margin" format="dimension"/>
@@ -42,7 +42,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 ```
     dependencies {
-        compile 'com.github.doubleDragon:DdBanner:v1.0.0'
+        compile 'com.github.doubleDragon:DdBanner:v1.2.0'
     }
 ```
 
