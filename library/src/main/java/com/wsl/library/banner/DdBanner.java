@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -56,6 +55,7 @@ public class DdBanner extends RelativeLayout {
     private LoopHandler loopHandler;
     private boolean canLoop;
     private boolean isLooping;
+    private boolean loop;
 
     public DdBanner(Context context) {
         this(context, null);
@@ -144,8 +144,17 @@ public class DdBanner extends RelativeLayout {
             throw new IllegalStateException("DdBanner set adapter only once");
         }
         ddAdapter = adapter;
+        ddAdapter.setDdBanner(this);
         ddViewPager.setAdapter(ddAdapter);
-        ddIndicator.setViewPager(ddViewPager);
+        ddIndicator.setDdBanner(this);
+
+        if(isLoop()) {
+            startLoop();
+        }
+    }
+
+    public DdViewPager getViewPager() {
+        return ddViewPager;
     }
 
     public DdAdapter getAdapter() {
@@ -160,6 +169,14 @@ public class DdBanner extends RelativeLayout {
         return canLoop;
     }
 
+    public boolean isLoop() {
+        return loop;
+    }
+
+    public void setLoop(boolean loop) {
+        this.loop = loop;
+    }
+
     public boolean isLooping() {
         return isLooping;
     }
@@ -169,14 +186,14 @@ public class DdBanner extends RelativeLayout {
     }
 
     public void startLoop() {
-        if (isCanLoop() && !isLooping()) {
+        if (isLoop() && isCanLoop() && !isLooping()) {
             setIsLooping(true);
             sendLoopMessage();
         }
     }
 
     public void stopLoop() {
-        if (isCanLoop() && isLooping()) {
+        if (isLoop() && isCanLoop() && isLooping()) {
             setIsLooping(false);
             removeLoopMessage();
         }

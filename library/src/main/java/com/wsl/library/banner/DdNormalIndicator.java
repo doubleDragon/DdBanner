@@ -3,10 +3,6 @@ package com.wsl.library.banner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
-import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -23,6 +19,7 @@ public class DdNormalIndicator extends LinearLayout {
     private final static int DEFAULT_INDICATOR_WIDTH = 7;
     private final static int DEFAULT_INDICATOR_MARGIN = 3;
     private ViewPager mViewpager;
+    private DdBanner mDdBanner;
     private int mIndicatorMargin = -1;
     private int mIndicatorWidth = -1;
     private int mIndicatorHeight = -1;
@@ -71,15 +68,18 @@ public class DdNormalIndicator extends LinearLayout {
                 (mIndicatorMargin < 0) ? dip2px(DEFAULT_INDICATOR_MARGIN) : mIndicatorMargin;
     }
 
-    public void setViewPager(ViewPager viewPager) {
-        mViewpager = viewPager;
-        if (mViewpager != null && mViewpager.getAdapter() != null) {
-            mLastPosition = -1;
-            createIndicators();
-            mViewpager.removeOnPageChangeListener(mInternalPageChangeListener);
-            mViewpager.addOnPageChangeListener(mInternalPageChangeListener);
-            mViewpager.getAdapter().registerDataSetObserver(mInternalDataSetObserver);
-            mInternalPageChangeListener.onPageSelected(mViewpager.getCurrentItem());
+    public void setDdBanner(DdBanner ddBanner) {
+        this.mDdBanner = ddBanner;
+        if(mDdBanner != null) {
+            mViewpager = ddBanner.getViewPager();
+            if (mViewpager != null && mViewpager.getAdapter() != null) {
+                mLastPosition = -1;
+                createIndicators();
+                mViewpager.removeOnPageChangeListener(mInternalPageChangeListener);
+                mViewpager.addOnPageChangeListener(mInternalPageChangeListener);
+                mViewpager.getAdapter().registerDataSetObserver(mInternalDataSetObserver);
+                mInternalPageChangeListener.onPageSelected(mViewpager.getCurrentItem());
+            }
         }
     }
 
@@ -155,7 +155,7 @@ public class DdNormalIndicator extends LinearLayout {
         removeAllViews();
         int count = getViewPagerCount();
 
-        if (count <= 0 || count == Integer.MAX_VALUE) {
+        if (count <= 0 || (mDdBanner.isLoop() && count == Integer.MAX_VALUE)) {
             return;
         }
 
@@ -179,7 +179,14 @@ public class DdNormalIndicator extends LinearLayout {
 
     private int getViewPagerCount() {
         int count = mViewpager.getAdapter().getCount();
-        return Integer.MAX_VALUE - count;
+        if (!mDdBanner.isLoop()) {
+            return count;
+        } else {
+            if(count == 1) {
+                return 1;
+            }
+            return Integer.MAX_VALUE - count;
+        }
     }
 
     private int getViewPagerCurrentItem() {
@@ -188,6 +195,9 @@ public class DdNormalIndicator extends LinearLayout {
     }
 
     private int getViewPagerCurrentItem(int count) {
+        if (!mDdBanner.isLoop()) {
+            return mViewpager.getCurrentItem();
+        }
         return mViewpager.getCurrentItem() % count;
     }
 

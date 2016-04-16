@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.wsl.library.banner.DdAdapter;
+import com.wsl.library.banner.DdBanner;
 import com.wsl.library.banner.DdViewHolder;
 
 import java.util.List;
@@ -18,12 +19,11 @@ import java.util.List;
  */
 public class DemoAdapter extends DdAdapter<String>{
 
-    private Context context;
 
     public DemoAdapter(Context context) {
         super(context);
-        this.context = context;
     }
+
     public DemoAdapter(Context context, List<String> list) {
         super(context, list);
     }

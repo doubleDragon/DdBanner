@@ -19,6 +19,8 @@ public abstract class DdAdapter<T> extends PagerAdapter {
     private Context context;
     private LayoutInflater inflater;
 
+    private DdBanner ddBanner;
+
     protected abstract View onCreateView(LayoutInflater inflater, ViewGroup parent);
 
     protected abstract DdViewHolder onCreateHolder(View itemView);
@@ -27,14 +29,6 @@ public abstract class DdAdapter<T> extends PagerAdapter {
 
     public DdAdapter(Context context) {
         this(context, null);
-    }
-
-    protected Context getContext() {
-        return context;
-    }
-
-    protected T getItem(int position) {
-        return data.get(position);
     }
 
     public DdAdapter(Context context, List<T> list) {
@@ -47,6 +41,19 @@ public abstract class DdAdapter<T> extends PagerAdapter {
         }
     }
 
+    public void setDdBanner(DdBanner ddBanner) {
+        this.ddBanner = ddBanner;
+        configBanner();
+    }
+
+    protected Context getContext() {
+        return context;
+    }
+
+    protected T getItem(int position) {
+        return data.get(position);
+    }
+
     public void update(List<T> list) {
         if (list == null) {
             return;
@@ -54,11 +61,28 @@ public abstract class DdAdapter<T> extends PagerAdapter {
         this.data.clear();
         this.data.addAll(list);
         this.notifyDataSetChanged();
+
+        configBanner();
+    }
+
+    private void configBanner() {
+        this.ddBanner.setCanLoop(data.size() > 1);
+        if(ddBanner.isLoop()) {
+            ddBanner.startLoop();
+        }
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE - data.size();
+        int size = data.size();
+        if(!isLoop()) {
+            return size;
+        } else {
+            if(size <= 1) {
+                return size;
+            }
+            return Integer.MAX_VALUE - size;
+        }
     }
 
     @Override
@@ -86,7 +110,21 @@ public abstract class DdAdapter<T> extends PagerAdapter {
     }
 
     private int getPositionOffset(int position) {
-        return position % data.size();
+        if(!isLoop()) {
+            return position;
+        }
+        int size = data.size();
+        if(size == 0) {
+            return 0;
+        }
+        return position % size;
+    }
+
+    private boolean isLoop() {
+        if(ddBanner == null) {
+            return false;
+        }
+        return ddBanner.isLoop();
     }
 
     private View getView(int position, ViewGroup parent) {
