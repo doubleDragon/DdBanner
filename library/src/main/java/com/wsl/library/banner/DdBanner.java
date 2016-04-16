@@ -181,7 +181,7 @@ public class DdBanner extends RelativeLayout {
         return isLooping;
     }
 
-    public void setIsLooping(boolean isLooping) {
+    void setIsLooping(boolean isLooping) {
         this.isLooping = isLooping;
     }
 
