@@ -161,7 +161,7 @@ public class DdBanner extends RelativeLayout {
         return ddAdapter;
     }
 
-    public void setCanLoop(boolean canLoop) {
+    void setCanLoop(boolean canLoop) {
         this.canLoop = canLoop;
     }
 
