@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="dd_targetX" format="integer"/>
+    <attr name="dd_targetY" format="integer"/>
+
     <declare-styleable name="DdIndicator">
         <attr name="dd_width" format="dimension"/>
         <attr name="dd_height" format="dimension"/>
@@ -11,11 +14,16 @@
         <attr name="dd_drawable_unselected" format="reference"/>
     </declare-styleable>
     
-    <declare-styleable name="DbBanner">
-        <attr name="dd_targetX" format="integer"/>
-        <attr name="dd_targetY" format="integer"/>
+    <declare-styleable name="DdBanner">
+        <attr name="dd_targetX" />
+        <attr name="dd_targetY" />
         <attr name="dd_loop_delay" format="integer"/>
         <attr name="dd_change_duration" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="DdMeasureView">
+        <attr name="dd_targetX" />
+        <attr name="dd_targetY" />
     </declare-styleable>
     
 </resources>

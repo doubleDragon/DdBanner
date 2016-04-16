@@ -80,11 +80,11 @@ public class DdBanner extends RelativeLayout {
         defaultWidth = point.x;
         defaultHeight = point.y;
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DbBanner);
-        targetX = a.getInt(R.styleable.DbBanner_dd_targetX, 0);
-        targetY = a.getInt(R.styleable.DbBanner_dd_targetY, 0);
-        loopDelay = a.getInt(R.styleable.DbBanner_dd_loop_delay, DEFAULT_LOOP_DELAY);
-        changeDuration = a.getInt(R.styleable.DbBanner_dd_change_duration, DEFAULT_CHANGE_DURATION);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DdBanner);
+        targetX = a.getInt(R.styleable.DdBanner_dd_targetX, 0);
+        targetY = a.getInt(R.styleable.DdBanner_dd_targetY, 0);
+        loopDelay = a.getInt(R.styleable.DdBanner_dd_loop_delay, DEFAULT_LOOP_DELAY);
+        changeDuration = a.getInt(R.styleable.DdBanner_dd_change_duration, DEFAULT_CHANGE_DURATION);
 
         a.recycle();
     }

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.wsl.library.banner.DdAdapter;
-import com.wsl.library.banner.DdBanner;
 import com.wsl.library.banner.DdViewHolder;
 
 import java.util.List;
@@ -30,12 +29,13 @@ public class DemoAdapter extends DdAdapter<String>{
 
     @Override
     protected View onCreateView(LayoutInflater inflater, ViewGroup parent) {
-        return inflater.inflate(R.layout.item_dd_adapter, parent, false);
+        return inflater.inflate(R.layout.item_dd_adapter_second, parent, false);
     }
 
     @Override
     protected void onBindView(int position, DdViewHolder viewHolder) {
         ViewHolder holder = (ViewHolder) viewHolder;
+        holder.imageView.setImageResource(R.mipmap.ic_dd_default);
         Picasso.with(getContext())
                 .load(getItem(position))
                 .placeholder(R.mipmap.ic_dd_default)
