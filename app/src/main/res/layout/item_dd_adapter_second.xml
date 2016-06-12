@@ -7,6 +7,6 @@
     android:layout_height="wrap_content"
     android:scaleType="centerCrop"
     android:src="@mipmap/ic_dd_default"
-    app:dd_targetX="710"
-    app:dd_targetY="320"
+    app:dd_targetX="1280"
+    app:dd_targetY="720"
     tools:layout_height="162dp" />

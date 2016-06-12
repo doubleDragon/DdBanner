@@ -27,30 +27,22 @@ public class DemoActivity extends AppCompatActivity {
 
     private void checkUrls() {
         List<String> urls= new ArrayList<>();
-        urls.add("http://images.qingsongchou.com/files/banner/14593422870267460258.jpg");
-        urls.add("http://images.qingsongchou.com/files/banner/14593335342944e01017.jpg");
+        urls.add("http://img5.imgtn.bdimg.com/it/u=1746418361,2823897370&fm=21&gp=0.jpg");
+        urls.add("http://img1.imgtn.bdimg.com/it/u=4229814767,1238709582&fm=21&gp=0.jpg");
         ddAdapter.update(urls);
     }
 
     private void initViews() {
         List<String> urls= new ArrayList<>();
-//        urls.add("http://images.qingsongchou.com/files/banner/14593422870267460258.jpg");
-//        urls.add("http://images.qingsongchou.com/files/banner/14593335342944e01017.jpg");
-//        urls.add("http://images.qingsongchou.com/files/banner/1458201861751491d645.jpg");
-//        urls.add("http://images.qingsongchou.com/files/banner/14588996149673db9641.jpg");
-//        urls.add("http://images.qingsongchou.com/files/banner/14588996149673db9641.jpg");
-//        urls.add("http://images.qingsongchou.com/files/banner/14592338992009010c85.jpg");
-//        urls.add("http://images.qingsongchou.com/files/banner/14592338992009010c85.jpg");
 
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/14602972143661a36c34.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/14602972311425a7b4e7.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/14602972368205f434e2.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/1460297246903795dd9b.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/14606425151774a6131f.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/146064252811031232.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/1460642674276737eb97.jpg");
-        urls.add("http://images.qingsongchou.com/files/qschou.com/project/17/a7f4be14-6103-46c9-af0e-c68bfad257cf/1460642680673299678e.jpg");
-
+        urls.add("http://img5.imgtn.bdimg.com/it/u=1479621666,13296461&fm=21&gp=0.jpg");
+        urls.add("http://img5.imgtn.bdimg.com/it/u=3614602665,2140950684&fm=21&gp=0.jpg");
+        urls.add("http://img1.imgtn.bdimg.com/it/u=2562925395,761784532&fm=21&gp=0.jpg");
+        urls.add("http://img5.imgtn.bdimg.com/it/u=1746418361,2823897370&fm=21&gp=0.jpg");
+        urls.add("http://img1.imgtn.bdimg.com/it/u=4229814767,1238709582&fm=21&gp=0.jpg");
+        urls.add("http://img4.imgtn.bdimg.com/it/u=3734860925,1898675427&fm=21&gp=0.jpg");
+        urls.add("http://img0.imgtn.bdimg.com/it/u=1274452826,1426086346&fm=21&gp=0.jpg");
+        urls.add("http://img3.imgtn.bdimg.com/it/u=2598241770,261736119&fm=21&gp=0.jpg");
 
         ddAdapter = new DemoAdapter(this, urls);
         ddBanner = (DdBanner) findViewById(R.id.banner);
