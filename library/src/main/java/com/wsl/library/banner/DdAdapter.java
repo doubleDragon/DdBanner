@@ -67,7 +67,7 @@ public abstract class DdAdapter<T> extends PagerAdapter {
 
     private void configBanner() {
         this.ddBanner.setCanLoop(data.size() > 1);
-        if(ddBanner.isLoop()) {
+        if (ddBanner.isLoop()) {
             ddBanner.startLoop();
         }
     }
@@ -75,10 +75,10 @@ public abstract class DdAdapter<T> extends PagerAdapter {
     @Override
     public int getCount() {
         int size = data.size();
-        if(!isLoop()) {
+        if (!isLoop()) {
             return size;
         } else {
-            if(size <= 1) {
+            if (size <= 1) {
                 return size;
             }
             return Integer.MAX_VALUE - size;
@@ -99,6 +99,11 @@ public abstract class DdAdapter<T> extends PagerAdapter {
         return view == object;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;//fix a bug, replace one web url to another web url
+    }
+
     /**
      * parent child index
      *
@@ -110,18 +115,18 @@ public abstract class DdAdapter<T> extends PagerAdapter {
     }
 
     private int getPositionOffset(int position) {
-        if(!isLoop()) {
+        if (!isLoop()) {
             return position;
         }
         int size = data.size();
-        if(size == 0) {
+        if (size == 0) {
             return 0;
         }
         return position % size;
     }
 
     private boolean isLoop() {
-        if(ddBanner == null) {
+        if (ddBanner == null) {
             return false;
         }
         return ddBanner.isLoop();
