@@ -1,4 +1,4 @@
-package com.wsl.library.demo;
+package com.wsl.library.banner;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wsl.library.banner.DdViewHolder;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wsl on 16-4-5.
  */
-public abstract class BbAbstractAdapter<T> extends PagerAdapter {
+public abstract class DdBannerAbstractAdapter<T> extends PagerAdapter {
 
     private List<T> data;
 
@@ -27,11 +25,11 @@ public abstract class BbAbstractAdapter<T> extends PagerAdapter {
 
     protected abstract void onBindView(int position, DdViewHolder viewHolder);
 
-    public BbAbstractAdapter(Context context) {
+    public DdBannerAbstractAdapter(Context context) {
         this(context, null);
     }
 
-    public BbAbstractAdapter(Context context, List<T> list) {
+    public DdBannerAbstractAdapter(Context context, List<T> list) {
         super();
         this.context = context;
         this.inflater = LayoutInflater.from(context);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.wsl.library.banner.DdBannerAbstractAdapter;
 import com.wsl.library.banner.DdViewHolder;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by wsl on 16-8-1.
  */
 
-public class BbAdapter extends BbAbstractAdapter<String>{
+public class BbAdapter extends DdBannerAbstractAdapter<String> {
 
     public BbAdapter(Context context) {
         super(context);
