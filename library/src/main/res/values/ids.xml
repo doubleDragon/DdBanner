@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="dd_banner_viewpager" type="id"/>
+    <item name="dd_banner_indicator" type="id"/>
+
+</resources>
