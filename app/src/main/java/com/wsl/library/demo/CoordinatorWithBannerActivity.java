@@ -2,6 +2,7 @@ package com.wsl.library.demo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -38,5 +39,12 @@ public class CoordinatorWithBannerActivity extends AppCompatActivity {
 
         DdBannerIndicator indicator = (DdBannerIndicator) findViewById(R.id.dd_banner_indicator);
         indicator.setupViewpager(mViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tableLayout);
+        if(tabLayout != null) {
+            tabLayout.addTab(tabLayout.newTab().setText("aaa"));
+            tabLayout.addTab(tabLayout.newTab().setText("bbb"));
+            tabLayout.addTab(tabLayout.newTab().setText("ccc"));
+        }
     }
 }

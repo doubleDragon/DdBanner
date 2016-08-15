@@ -56,10 +56,13 @@ public abstract class DdBannerAbstractAdapter<T> extends PagerAdapter {
         this.notifyDataSetChanged();
     }
 
+    public List<T> getData() {
+        return this.data;
+    }
+
     @Override
     public int getCount() {
-        int size = data.size();
-        return size;
+        return data.size();
     }
 
     @Override
