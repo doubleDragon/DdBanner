@@ -93,7 +93,7 @@ public class DdBannerIndicator extends LinearLayout {
             }
 
             int count = getViewPagerCount();
-            if (count <= 0) {
+            if (count <= 1) {
                 return;
             }
 
@@ -152,7 +152,7 @@ public class DdBannerIndicator extends LinearLayout {
         removeAllViews();
         int count = getViewPagerCount();
 
-        if (count <= 0) {
+        if (count <= 1) {
             return;
         }
 
