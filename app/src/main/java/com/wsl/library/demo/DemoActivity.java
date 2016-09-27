@@ -34,7 +34,7 @@ public class DemoActivity extends AppCompatActivity {
 
     private void initViews() {
         List<String> urls= new ArrayList<>();
-        urls.add("http://img5.imgtn.bdimg.com/it/u=1746418361,2823897370&fm=21&gp=0.jpg");
+//        urls.add("http://img5.imgtn.bdimg.com/it/u=1746418361,2823897370&fm=21&gp=0.jpg");
 
 //        urls.add("http://img5.imgtn.bdimg.com/it/u=1479621666,13296461&fm=21&gp=0.jpg");
 //        urls.add("http://img5.imgtn.bdimg.com/it/u=3614602665,2140950684&fm=21&gp=0.jpg");
@@ -44,6 +44,11 @@ public class DemoActivity extends AppCompatActivity {
 //        urls.add("http://img4.imgtn.bdimg.com/it/u=3734860925,1898675427&fm=21&gp=0.jpg");
 //        urls.add("http://img0.imgtn.bdimg.com/it/u=1274452826,1426086346&fm=21&gp=0.jpg");
 //        urls.add("http://img3.imgtn.bdimg.com/it/u=2598241770,261736119&fm=21&gp=0.jpg");
+
+        urls.add("http://i4.piimg.com/567571/1cb06f22d0abc62c.png");
+        urls.add("http://i4.piimg.com/567571/1cb06f22d0abc62c.png");
+        urls.add("http://i4.piimg.com/567571/1cb06f22d0abc62c.png");
+        urls.add("http://i4.piimg.com/567571/1cb06f22d0abc62c.png");
 
         ddAdapter = new DemoAdapter(this, urls);
         ddBanner = (DdBanner) findViewById(R.id.banner);
