@@ -21,11 +21,7 @@ public abstract class DdAdapter<T> extends PagerAdapter {
 
     private DdBanner ddBanner;
 
-    protected abstract View onCreateView(LayoutInflater inflater, ViewGroup parent);
-
-    protected abstract DdViewHolder onCreateHolder(View itemView);
-
-    protected abstract void onBindView(int position, DdViewHolder viewHolder);
+    protected abstract View onCreateView(LayoutInflater inflater, ViewGroup parent, int position);
 
     public DdAdapter(Context context) {
         this(context, null);
@@ -51,6 +47,9 @@ public abstract class DdAdapter<T> extends PagerAdapter {
     }
 
     protected T getItem(int position) {
+        if(isLoop()) {
+            position = getPositionOffset(position);
+        }
         return data.get(position);
     }
 
@@ -87,11 +86,14 @@ public abstract class DdAdapter<T> extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        return getView(position, container);
+        View view = onCreateView(inflater, container, position);
+        container.addView(view);
+        return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View)object);
     }
 
     @Override
@@ -130,23 +132,5 @@ public abstract class DdAdapter<T> extends PagerAdapter {
             return false;
         }
         return ddBanner.isLoop();
-    }
-
-    private View getView(int position, ViewGroup parent) {
-        int offset = getChildOffset(position);
-        View child = parent.getChildAt(offset);
-        DdViewHolder viewHolder;
-        if (child == null) {
-            child = onCreateView(inflater, parent);
-            viewHolder = onCreateHolder(child);
-            child.setTag(viewHolder);
-            parent.addView(child);
-        } else {
-            viewHolder = (DdViewHolder) child.getTag();
-        }
-        position = getPositionOffset(position);
-        viewHolder.setPosition(position);
-        onBindView(position, viewHolder);
-        return child;
     }
 }

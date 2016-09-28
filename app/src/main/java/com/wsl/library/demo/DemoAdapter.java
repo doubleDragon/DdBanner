@@ -47,42 +47,10 @@ public class DemoAdapter extends DdAdapter<String>{
     }
 
     @Override
-    protected View onCreateView(LayoutInflater inflater, ViewGroup parent) {
-        return inflater.inflate(R.layout.item_dd_adapter_second, parent, false);
-    }
-
-    @Override
-    protected void onBindView(int position, DdViewHolder viewHolder) {
-        ViewHolder holder = (ViewHolder) viewHolder;
-        holder.imageView.setImageResource(R.mipmap.ic_dd_default);
-//        Picasso.with(getContext())
-//                .load(getItem(position))
-//                .placeholder(R.mipmap.ic_dd_default)
-//                .error(R.mipmap.ic_dd_default)
-//                .into(holder.imageView);
-        ImageLoader.getInstance().displayImage(getItem(position), holder.imageView, options);
-    }
-
-    @Override
-    protected DdViewHolder onCreateHolder(View view) {
-        return new ViewHolder(view);
-    }
-
-    private class ViewHolder extends DdViewHolder implements View.OnClickListener{
-
-        ImageView imageView;
-
-        public ViewHolder(View view) {
-            super(view);
-            imageView = (ImageView) view;
-            imageView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            int position = getPosition();
-            String url = getItem(position);
-            Log.d("test", "click position: " + position + "--url: " + url);
-        }
+    protected View onCreateView(LayoutInflater inflater, ViewGroup parent, int position) {
+        View view = inflater.inflate(R.layout.item_dd_adapter_second, parent, false);
+        ImageView imageView = (ImageView) view;
+        ImageLoader.getInstance().displayImage(getItem(position), imageView, options);
+        return view;
     }
 }
