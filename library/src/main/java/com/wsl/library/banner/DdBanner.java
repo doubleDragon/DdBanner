@@ -3,6 +3,7 @@ package com.wsl.library.banner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -57,6 +58,8 @@ public class DdBanner extends RelativeLayout {
     private boolean isLooping;
     private boolean loop;
 
+    private int indicatorBg;
+
     public DdBanner(Context context) {
         this(context, null);
     }
@@ -85,6 +88,7 @@ public class DdBanner extends RelativeLayout {
         targetY = a.getInt(R.styleable.DdBanner_dd_targetY, 0);
         loopDelay = a.getInt(R.styleable.DdBanner_dd_loop_delay, DEFAULT_LOOP_DELAY);
         changeDuration = a.getInt(R.styleable.DdBanner_dd_change_duration, DEFAULT_CHANGE_DURATION);
+        indicatorBg = a.getResourceId(R.styleable.DdBanner_dd_background_res, 0);
 
         a.recycle();
     }
@@ -130,6 +134,9 @@ public class DdBanner extends RelativeLayout {
         params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         params1.bottomMargin = dp2px(context, 8);
         ddIndicator = new DdNormalIndicator(context);
+        if(indicatorBg != 0) {
+            ddIndicator.setIndicatorBackground(indicatorBg);
+        }
         ddIndicator.setGravity(Gravity.CENTER);
         ddIndicator.setLayoutParams(params1);
 
@@ -137,10 +144,10 @@ public class DdBanner extends RelativeLayout {
     }
 
     public void setAdapter(DdAdapter adapter) {
-        if(adapter == null) {
+        if (adapter == null) {
             return;
         }
-        if(ddAdapter != null) {
+        if (ddAdapter != null) {
             throw new IllegalStateException("DdBanner set adapter only once");
         }
         ddAdapter = adapter;
@@ -148,7 +155,7 @@ public class DdBanner extends RelativeLayout {
         ddViewPager.setAdapter(ddAdapter);
         ddIndicator.setDdBanner(this);
 
-        if(isLoop()) {
+        if (isLoop()) {
             startLoop();
         }
     }

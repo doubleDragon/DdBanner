@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         app:dd_targetX="710"
         app:dd_targetY="320"
+
         tools:background="#f33" />
+    <!--app:dd_background_res="@drawable/ic_indicator_bg"-->
 
     <Button
         android:id="@+id/bt"

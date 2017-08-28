@@ -3,6 +3,10 @@ package com.wsl.library.banner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -23,7 +27,7 @@ public class DdNormalIndicator extends LinearLayout {
     private int mIndicatorMargin = -1;
     private int mIndicatorWidth = -1;
     private int mIndicatorHeight = -1;
-    private int mIndicatorStateResId = R.drawable.dd_indicator_state;
+    private int mIndicatorResId = R.drawable.dd_indicator_state;
 
     private int mLastPosition = -1;
 
@@ -70,7 +74,7 @@ public class DdNormalIndicator extends LinearLayout {
 
     public void setDdBanner(DdBanner ddBanner) {
         this.mDdBanner = ddBanner;
-        if(mDdBanner != null) {
+        if (mDdBanner != null) {
             mViewpager = ddBanner.getViewPager();
             if (mViewpager != null && mViewpager.getAdapter() != null) {
                 mLastPosition = -1;
@@ -168,7 +172,7 @@ public class DdNormalIndicator extends LinearLayout {
 
     private void addIndicator(boolean selected) {
         View Indicator = new View(getContext());
-        Indicator.setBackgroundResource(mIndicatorStateResId);
+        Indicator.setBackgroundResource(mIndicatorResId);
         Indicator.setSelected(selected);
         addView(Indicator, mIndicatorWidth, mIndicatorHeight);
         LayoutParams lp = (LayoutParams) Indicator.getLayoutParams();
@@ -182,7 +186,7 @@ public class DdNormalIndicator extends LinearLayout {
         if (!mDdBanner.isLoop()) {
             return count;
         } else {
-            if(count == 1) {
+            if (count == 1) {
                 return 1;
             }
             return Integer.MAX_VALUE - count;
@@ -199,6 +203,10 @@ public class DdNormalIndicator extends LinearLayout {
             return mViewpager.getCurrentItem();
         }
         return mViewpager.getCurrentItem() % count;
+    }
+
+    void setIndicatorBackground(int drawable) {
+        mIndicatorResId = drawable;
     }
 
     private class ReverseInterpolator implements Interpolator {

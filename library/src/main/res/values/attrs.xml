@@ -19,6 +19,7 @@
         <attr name="dd_targetY" />
         <attr name="dd_loop_delay" format="integer"/>
         <attr name="dd_change_duration" format="integer"/>
+        <attr name="dd_background_res" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="DdMeasureView">
